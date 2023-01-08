@@ -1,0 +1,3 @@
+displayName = Boss Flamethrower Mode
+author = First Fractal
+version = 0.1
