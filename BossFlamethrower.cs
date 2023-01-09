@@ -16,11 +16,11 @@ namespace BossFlamethrower
 	{
         public override void AI(NPC npc)
         {
-            if (npc.boss)
+            if (npc.boss && npc.type != NPCID.Spazmatism)
             {
                 float num465 = 6f;
                 int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
-                int num466 = 101;
+                int num466 = 85;
                 Vector2 vector43 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                 float num462 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector43.X;
                 float num463 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector43.Y;
