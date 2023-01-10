@@ -5,6 +5,8 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using System;
+using Terraria.ModLoader.Config;
+using System.ComponentModel;
 
 namespace BossFlamethrower
 {
@@ -14,11 +16,12 @@ namespace BossFlamethrower
 
     public class GlobalBossFlamethrower : GlobalNPC
     {
-        static float cooldownMax = 1f;
+        static float cooldownMax = Config.Instance.FlamethrowerCooldown * 60f;
+        static float durationMax = Config.Instance.FlamethrowerDuration * 60f;
         static float cooldown = cooldownMax;
-        static float durationMax = 100000 * 60f;
         static float duration = durationMax;
         static bool flame = false;
+
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             npc.buffImmune[BuffID.CursedInferno] = true;
@@ -27,6 +30,25 @@ namespace BossFlamethrower
 
         public override void AI(NPC npc)
         {
+            //check to see if the max time is set correctly
+            cooldownMax = Config.Instance.FlamethrowerCooldown * 60f;
+            durationMax = Config.Instance.FlamethrowerDuration * 60f;
+            if (Config.Instance.UseMinutes)
+            {
+                cooldownMax = Config.Instance.FlamethrowerCooldown * 60f * 60f;
+                durationMax = Config.Instance.FlamethrowerDuration * 60f * 60f;
+            }
+
+            //check if the timer is bigger then the max time (such as lower down the max in the config), then set it correctly
+            if (cooldown > cooldownMax)
+            {
+                cooldown = cooldownMax;
+            }
+            if (duration > durationMax)
+            {
+                duration = durationMax;
+            }
+
             // get all of the bosses and boss parts
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
             {
@@ -34,6 +56,7 @@ namespace BossFlamethrower
                 {
                     //slowly decrease the time and stop when times up
                     duration--;
+                    //Main.NewText("The duration of the flamethrower is currently at " + duration.ToString());
                     if (duration < 0)
                     {
                         flame = false;
@@ -91,6 +114,7 @@ namespace BossFlamethrower
                 {
                     //countdown the cooldown till flame time
                     cooldown--;
+                    //Main.NewText("The cooldown of the flamethrower is currently at " + cooldown.ToString());
                     if (cooldown < 0)
                     {
                         flame = true;
@@ -113,7 +137,7 @@ namespace BossFlamethrower
                 //get all of the current npcs
                 foreach(NPC npc in Main.npc)
                 {
-                    //check if the npc is a boss, and if so, then remove the cursed inferno
+                    //check if the npc is a boss, and if so, then remove the cursed flame
                     if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
                     {
                         player.ClearBuff(BuffID.CursedInferno);
@@ -122,5 +146,29 @@ namespace BossFlamethrower
             }
             base.Update(type, player, ref buffIndex);
         }
+    }
+
+    [Label("$Mods.BossFlamethrower.Config.Label")]
+    public class Config : ModConfig
+    {
+        public override ConfigScope Mode => ConfigScope.ServerSide;
+        public static Config Instance;
+
+        [Header("$Mods.BossFlamethrower.Config.Header.GeneralOptions")]
+
+        [Label("$Mods.BossFlamethrower.Config.FlamethrowerCooldown.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.FlamethrowerCooldown.Tooltip")]
+        [DefaultValue(3)]
+        public int FlamethrowerCooldown;
+
+        [Label("$Mods.BossFlamethrower.Config.FlamethrowerDuration.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.FlamethrowerDuration.Tooltip")]
+        [DefaultValue(1)]
+        public int FlamethrowerDuration;
+
+        [Label("$Mods.BossFlamethrower.Config.UseMinutes.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.UseMinutes.Tooltip")]
+        [DefaultValue(true)]
+        public bool UseMinutes;
     }
 }
