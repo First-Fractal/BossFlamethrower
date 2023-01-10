@@ -62,28 +62,32 @@ namespace BossFlamethrower
                     {
                         //set the length of the flamethrower
                         Vector2 velocity = new Vector2(4, 0);
-                        //if the boss is a eye, boss then rotate the flamethrower it like this to make it come out of the eye
+                        //if the boss is a eye, boss then rotate the flamethrower like this to make it come out of the eye
                         if (npc.type == NPCID.EyeofCthulhu || npc.type == NPCID.Retinazer)
                         {
                             velocity = velocity.RotatedBy(npc.rotation + MathHelper.ToRadians(90));
                         }
-                        //if the boss is a plantera, then rotate the flamethrower it like this to make it come out of the mouth
+                        //if the boss is a plantera, then rotate the flamethrower like this to make it come out of the mouth
                         else if (npc.type == NPCID.Plantera)
                         {
                             velocity = velocity.RotatedBy(npc.rotation + MathHelper.ToRadians(270));
                         }
-                        //if the boss is a duke fishron, then rotate the flamethrower it like this to make it come out of the mouth
+                        //if the boss is a duke fishron, then rotate the flamethrower like this to make it come out of the mouth
                         else if (npc.type == NPCID.DukeFishron)
                         {
                             velocity = velocity.RotatedBy(npc.rotation * npc.direction);
                         }
-                        //if the boss is a worm boss, then rotate the flamethrower it like this to make it come out of the mouth
-                        else if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.EaterofWorldsHead)
+                        //if the boss is EOW, then rotate the flamethrower like this to make it come out of the mouth
+                        else if (npc.type == NPCID.EaterofWorldsHead)
                         {
                             velocity = velocity.RotatedBy(npc.rotation + MathHelper.ToRadians(270));
                         }
-
-                        //if the boss is a 2D Side boss, then rotate the flamethrower it like this to make it come out of the direction that it is facing at
+                        //if the boss is The Destroyer, then make the flamethrower longer, and rotate it like this to make it come out of the mouth
+                        else if (npc.type == NPCID.TheDestroyer)
+                        {
+                            velocity = new Vector2(8, 0).RotatedBy(npc.rotation + MathHelper.ToRadians(270));
+                        }
+                        //if the boss is a 2D Side boss, then rotate the flamethrower like this to make it come out of the direction that it is facing at
                         else if (npc.type == NPCID.Deerclops || npc.type == NPCID.WallofFlesh || npc.type == NPCID.CultistBoss || npc.type == NPCID.CultistBossClone)
                         {
                             if (npc.direction == -1)
