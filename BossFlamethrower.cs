@@ -16,27 +16,21 @@ namespace BossFlamethrower
 
     public class GlobalBossFlamethrower : GlobalNPC
     {
-        static float cooldownMax = Config.Instance.FlamethrowerCooldown * 60f;
-        static float durationMax = Config.Instance.FlamethrowerDuration * 60f;
+        static float cooldownMax = Config.Instance.FlamethrowerCooldown;
+        static float durationMax = Config.Instance.FlamethrowerDuration;
         static float cooldown = cooldownMax;
         static float duration = durationMax;
         static bool flame = false;
 
-        public override void OnSpawn(NPC npc, IEntitySource source)
-        {
-            npc.buffImmune[BuffID.CursedInferno] = true;
-            base.OnSpawn(npc, source);
-        }
-
         public override void AI(NPC npc)
         {
             //check to see if the max time is set correctly
-            cooldownMax = Config.Instance.FlamethrowerCooldown * 60f;
-            durationMax = Config.Instance.FlamethrowerDuration * 60f;
+            cooldownMax = Config.Instance.FlamethrowerCooldown;
+            durationMax = Config.Instance.FlamethrowerDuration;
             if (Config.Instance.UseMinutes)
             {
-                cooldownMax = Config.Instance.FlamethrowerCooldown * 60f * 60f;
-                durationMax = Config.Instance.FlamethrowerDuration * 60f * 60f;
+                cooldownMax = Config.Instance.FlamethrowerCooldown * 60f;
+                durationMax = Config.Instance.FlamethrowerDuration * 60f;
             }
 
             //check if the timer is bigger then the max time (such as lower down the max in the config), then set it correctly
@@ -125,6 +119,20 @@ namespace BossFlamethrower
             }
             base.AI(npc);
         }
+
+        //reset the cooldown 
+        public override void OnKill(NPC npc)
+        {
+            if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
+            {
+                if (npc.type != NPCID.MoonLordCore && npc.type != NPCID.MoonLordFreeEye && npc.type != NPCID.MoonLordHand && npc.type != NPCID.MoonLordHead && npc.type != NPCID.MoonLordLeechBlob && npc.type != NPCID.Spazmatism)
+                    {
+                        cooldown = cooldownMax;
+                        duration = durationMax;
+                    }
+            }
+            base.OnKill(npc);
+        }
     }
 
     public class GlobalBuffFlamethrower : GlobalBuff
@@ -158,17 +166,17 @@ namespace BossFlamethrower
 
         [Label("$Mods.BossFlamethrower.Config.FlamethrowerCooldown.Label")]
         [Tooltip("$Mods.BossFlamethrower.Config.FlamethrowerCooldown.Tooltip")]
-        [DefaultValue(3)]
+        [DefaultValue(30)]
         public int FlamethrowerCooldown;
 
         [Label("$Mods.BossFlamethrower.Config.FlamethrowerDuration.Label")]
         [Tooltip("$Mods.BossFlamethrower.Config.FlamethrowerDuration.Tooltip")]
-        [DefaultValue(1)]
+        [DefaultValue(10)]
         public int FlamethrowerDuration;
 
         [Label("$Mods.BossFlamethrower.Config.UseMinutes.Label")]
         [Tooltip("$Mods.BossFlamethrower.Config.UseMinutes.Tooltip")]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool UseMinutes;
     }
 }
