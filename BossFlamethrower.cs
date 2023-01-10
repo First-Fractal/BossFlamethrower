@@ -8,15 +8,15 @@ using System;
 
 namespace BossFlamethrower
 {
-	public class BossFlamethrower : Mod
-	{
-	}
+    public class BossFlamethrower : Mod
+    {
+    }
 
-	public class GlobalBossFlamethrower: GlobalNPC
-	{
-        static float cooldownMax = 15 * 60f;
+    public class GlobalBossFlamethrower : GlobalNPC
+    {
+        static float cooldownMax = 1f;
         static float cooldown = cooldownMax;
-        static float durationMax = 10 * 60f;
+        static float durationMax = 100000 * 60f;
         static float duration = durationMax;
         static bool flame = false;
         public override void OnSpawn(NPC npc, IEntitySource source)
@@ -40,13 +40,13 @@ namespace BossFlamethrower
                         duration = durationMax;
                     }
 
-                    //dont give moon lord a flamethrower, due to the lighting hiding it
-                    if (npc.type != NPCID.MoonLordCore && npc.type != NPCID.MoonLordFreeEye && npc.type != NPCID.MoonLordHand && npc.type != NPCID.MoonLordHead && npc.type != NPCID.MoonLordLeechBlob)
+                    //dont give moon lord a flamethrower, due to the lighting hiding it, and dont give spazmatism a flame thrower, since he already has one
+                    if (npc.type != NPCID.MoonLordCore && npc.type != NPCID.MoonLordFreeEye && npc.type != NPCID.MoonLordHand && npc.type != NPCID.MoonLordHead && npc.type != NPCID.MoonLordLeechBlob && npc.type != NPCID.Spazmatism)
                     {
                         //set the length of the flamethrower
                         Vector2 velocity = new Vector2(4, 0);
                         //if the boss is a eye, boss then rotate the flamethrower it like this to make it come out of the eye
-                        if (npc.type == NPCID.EyeofCthulhu || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
+                        if (npc.type == NPCID.EyeofCthulhu || npc.type == NPCID.Retinazer)
                         {
                             velocity = velocity.RotatedBy(npc.rotation + MathHelper.ToRadians(90));
                         }
@@ -84,7 +84,7 @@ namespace BossFlamethrower
                             velocity = velocity.RotatedBy(-Math.Atan2(deltaY, deltaX));
                         }
                         //create the flame thrower
-                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 6, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
                     }
                 }
                 else
@@ -100,6 +100,27 @@ namespace BossFlamethrower
                 }
             }
             base.AI(npc);
+        }
+    }
+
+    public class GlobalBuffFlamethrower : GlobalBuff
+    {
+        public override void Update(int type, Player player, ref int buffIndex)
+        {
+            //check if the buff is from the player
+            if (type == BuffID.CursedInferno)
+            {
+                //get all of the current npcs
+                foreach(NPC npc in Main.npc)
+                {
+                    //check if the npc is a boss, and if so, then remove the cursed inferno
+                    if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
+                    {
+                        player.ClearBuff(BuffID.CursedInferno);
+                    }
+                }
+            }
+            base.Update(type, player, ref buffIndex);
         }
     }
 }
