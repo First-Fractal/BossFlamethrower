@@ -12,3 +12,6 @@ Moon Lord dosn't have flamethrowers because it is almost impossible to see them 
 
 # Credit
 If you are a Terraria Content Creator that is going to use this mod, please give me proper credit by mention that I was the one who made it, and that you link my channel, mod, or website in the description.
+
+# Steam Workshop
+[Download it here](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
