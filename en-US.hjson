@@ -20,13 +20,5 @@ Mods: {
 				Tooltip: If true, then the values above will be set to minutes, or else they will be in seconds.
 			}
 		}
-
-		Chat: {
-			CommandBefore: "There are "
-			CommandAfter: " seconds left."
-			SpawnedBefore: "The player, "
-			SpawnedMid: ", has rolled the dice, and got a "
-			SpawnedAfter: " as his reward."
-		}
 	}
 }
