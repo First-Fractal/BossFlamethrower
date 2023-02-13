@@ -1,24 +1,26 @@
-﻿Mods: {
+
+Mods: {
 	BossFlamethrower: {
 		Config: {
-			Label: "Config"
-			Header: {
-				GeneralOptions: "General Options"
-			}
+			Label: Config
+			Header.GeneralOptions: General Options
+
 			FlamethrowerCooldown: {
-				Label: "Flamethrower Cooldown"
-				Tooltip: "Set how long it will take, in minutes, for the boss to start shooting the flamethrower."
+				Label: Flamethrower Cooldown
+				Tooltip: Set how long it will take, in minutes, for the boss to start shooting the flamethrower.
 			}
+
 			FlamethrowerDuration: {
-				Label: "Flamethrower Duration"
-				Tooltip: "Set how long the flamethrower will last, in minutes."
+				Label: Flamethrower Duration
+				Tooltip: Set how long the flamethrower will last, in minutes.
 			}
 
 			UseMinutes: {
-				Label: "Use Minutes?"
-				Tooltip: "If true, then the values above will be set to minutes, or else they will be in seconds."
+				Label: Use Minutes?
+				Tooltip: If true, then the values above will be set to minutes, or else they will be in seconds.
 			}
 		}
+
 		Chat: {
 			CommandBefore: "There are "
 			CommandAfter: " seconds left."
