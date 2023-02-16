@@ -1,6 +1,10 @@
 
 Mods: {
 	BossFlamethrower: {
+		Warning: WARNING: Since you enabled Moon Lord to have flamethrower, set your lighting to retro or trippy to be able to see them.
+		PyroM: has decided to activate his inner pyromaniac.
+		PyroF: has decided to activate her inner pyromaniac.
+
 		Config: {
 			Label: Config
 			Header.GeneralOptions: General Options
@@ -18,6 +22,26 @@ Mods: {
 			UseMinutes: {
 				Label: Use Minutes?
 				Tooltip: If true, then the values above will be set to minutes, or else they will be in seconds.
+			}
+
+			CursedPHM: {
+				Label: Cursed Inferno Pre-Hardmode?
+				Tooltip: If true, then the flamethrower will give the Cursed Inferno debuff in Pre-Hardmode.
+			}
+
+			UseCursed: {
+				Label: Use Cursed Inferno?
+				Tooltip: If false, then no bosses (except for Spazmatism) will inflict Cursed Inferno.
+			}
+
+			FlameDis: {
+				Label: Flamethrower Distance
+				Tooltip: Set how long the flamethrower should be. Idk what the unit is, so don't ask me.
+			}
+
+			MoonCursed: {
+				Label: Give Moon Lord Flamethrower?
+				Tooltip: If true, then Moon Lord will have a flamethrower. NOTE: YOU MUST SET YOUR LIGHTING TO RETRO OR TRIPPY TO BE ABLE TO SEE THE FLAMETHROWER.
 			}
 		}
 	}

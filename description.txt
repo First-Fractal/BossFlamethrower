@@ -4,8 +4,16 @@ By default, the flamethrower will come out every 30 seconds, and it will last fo
 
 The flamethrower will behave differently depending on the boss. 
 For Eye of Cthulhu, Eater of Worlds, The Destroyer, Retinazer, Plantera, and DukeFishron, the flamethrower will come out and point of there mouth.
+For	Skeletron and Skeletron Prime, the flamethrower is at the bottom. 
 For Deerclops, Wall of Flesh, Cultist, and Cultist Clone, it will come out and point of the side of the boss.
 For everyone else, except for Moon lord and Spazmatism, then it will come out of the center and points torwards the player target. 
-Moon Lord dosn't have flamethrowers because it is almost impossible to see them cause of the darkness.
+Moon Lord dosn't have flamethrowers because it is almost impossible to see them cause of the darkness. However, you can enable him to have it, but you got to change your lighting to retro or trippy to be able to see it.
 
 If you are a Terraria Content Creator that is going to use this mod, please give me proper credit by mention that I was the one who made it, and that you link my channel, mod, or website in the description.
+
+Change Log
+---------------------------------------
+V 1.1:
+Change how the flamethrower worked for Skeletron and Skeletron Prime. Added in more config options for the mod. Gave the option for Moon Lord to have flamethrower, but it has to be enabled. Made all bosses say when the flame is activated.
+v 1.0:
+Relased the mod

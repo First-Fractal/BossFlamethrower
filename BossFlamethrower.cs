@@ -1,17 +1,29 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Chat;
+using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
 using Terraria.ModLoader.Config;
+using System;
 using System.ComponentModel;
+using Microsoft.Xna.Framework;
 
 namespace BossFlamethrower
 {
     public class BossFlamethrower : Mod
     {
+        public void Talk(string message, Color color)
+        {
+            if (Main.netMode == NetmodeID.SinglePlayer)
+            {
+                Main.NewText(message, color);
+            }
+            else
+            {
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(message), color);
+            }
+        }
     }
 
     public class GlobalBossFlamethrower : GlobalNPC
@@ -21,6 +33,20 @@ namespace BossFlamethrower
         static float cooldown = cooldownMax;
         static float duration = durationMax;
         static bool flame = false;
+        static bool talked = false;
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (Config.Instance.MoonCursed)
+            {
+                if (npc.type == NPCID.MoonLordCore)
+                {
+                    BossFlamethrower BF = new BossFlamethrower();
+                    BF.Talk(Language.GetTextValue("Mods.BossFlamethrower.Warning"), Color.Cyan);
+                }
+            }
+            base.OnSpawn(npc, source);
+        }
 
         public override void AI(NPC npc)
         {
@@ -57,11 +83,11 @@ namespace BossFlamethrower
                         duration = durationMax;
                     }
 
-                    //dont give moon lord a flamethrower, due to the lighting hiding it, and dont give spazmatism a flame thrower, since he already has one
-                    if (npc.type != NPCID.MoonLordCore && npc.type != NPCID.MoonLordFreeEye && npc.type != NPCID.MoonLordHand && npc.type != NPCID.MoonLordHead && npc.type != NPCID.MoonLordLeechBlob && npc.type != NPCID.Spazmatism)
+                    //dont give spazmatism a flame thrower, since he already has one
+                    if (npc.type != NPCID.Spazmatism)
                     {
                         //set the length of the flamethrower
-                        Vector2 velocity = new Vector2(4, 0);
+                        Vector2 velocity = new Vector2(Config.Instance.FlameDis, 0);
                         //if the boss is a eye, boss then rotate the flamethrower like this to make it come out of the eye
                         if (npc.type == NPCID.EyeofCthulhu || npc.type == NPCID.Retinazer)
                         {
@@ -75,7 +101,7 @@ namespace BossFlamethrower
                         //if the boss is a duke fishron, then rotate the flamethrower like this to make it come out of the mouth
                         else if (npc.type == NPCID.DukeFishron)
                         {
-                            velocity = velocity.RotatedBy(npc.rotation * npc.direction);
+                            velocity = velocity.RotatedBy(npc.rotation);
                         }
                         //if the boss is EOW, then rotate the flamethrower like this to make it come out of the mouth
                         else if (npc.type == NPCID.EaterofWorldsHead)
@@ -87,6 +113,11 @@ namespace BossFlamethrower
                         {
                             velocity = new Vector2(8, 0).RotatedBy(npc.rotation + MathHelper.ToRadians(270));
                         }
+                        //if the boss is Skeletron or Skeletron Prime, then make the flamethrower appear at the chin of the mouth. 
+                        else if (npc.type == NPCID.SkeletronHead || npc.type == NPCID.SkeletronPrime)
+                        {
+                            velocity = velocity.RotatedBy(npc.rotation + MathHelper.ToRadians(90));
+                        }
                         //if the boss is a 2D Side boss, then rotate the flamethrower like this to make it come out of the direction that it is facing at
                         else if (npc.type == NPCID.Deerclops || npc.type == NPCID.WallofFlesh || npc.type == NPCID.CultistBoss || npc.type == NPCID.CultistBossClone)
                         {
@@ -95,7 +126,6 @@ namespace BossFlamethrower
                                 velocity = new Vector2(-velocity.X, velocity.Y);
                             }
                         }
-
                         //for everyone else, make the flamethower point torwards the player
                         else
                         {
@@ -104,8 +134,36 @@ namespace BossFlamethrower
                             float deltaY = npc.position.Y - player.position.Y;
                             velocity = velocity.RotatedBy(-Math.Atan2(deltaY, deltaX));
                         }
-                        //create the flame thrower
-                        Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                        //check if moon lord is the current npc
+                        if (npc.type == NPCID.MoonLordCore || npc.type == NPCID.MoonLordFreeEye || npc.type == NPCID.MoonLordHand || npc.type == NPCID.MoonLordHead || npc.type == NPCID.MoonLordLeechBlob)
+                            {
+                            //check if moon lord should be allowed to use flamethrowers
+                            if (Config.Instance.MoonCursed)
+                            {
+                                //create the flame thrower
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                            }
+                        } else
+                        {
+                            //create the flame thrower
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+
+                            if (talked == false)
+                            {
+                                BossFlamethrower BF = new BossFlamethrower();
+                                string message = "";
+                                if (npc.type == NPCID.QueenBee || npc.type == NPCID.QueenSlimeBoss || npc.type == NPCID.Plantera || npc.type == NPCID.HallowBoss)
+                                {
+                                    message = npc.FullName + " " + Language.GetTextValue("Mods.BossFlamethrower.PyroF");
+                                } else
+                                {
+                                    message = npc.FullName + " " + Language.GetTextValue("Mods.BossFlamethrower.PyroM");
+                                }
+
+                                BF.Talk(message, new Color(255, 96, 10));
+                                talked = true;
+                            }
+                        }
                     }
                 }
                 else
@@ -117,7 +175,7 @@ namespace BossFlamethrower
                     {
                         flame = true;
                         cooldown = cooldownMax;
-
+                        talked = false;
                     }
                 }
             }
@@ -149,11 +207,15 @@ namespace BossFlamethrower
                 //get all of the current npcs
                 foreach(NPC npc in Main.npc)
                 {
-                    //check if the npc is a boss, and if so, then remove the cursed flame
-                    if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
+                    //remove the debuff, depending on the config setup
+                    if (Config.Instance.UseCursed == false)
+                    {
+                        player.ClearBuff(BuffID.CursedInferno);
+                    } else if (Main.hardMode == false && Config.Instance.CursedPHM == false)
                     {
                         player.ClearBuff(BuffID.CursedInferno);
                     }
+
                 }
             }
             base.Update(type, player, ref buffIndex);
@@ -182,5 +244,26 @@ namespace BossFlamethrower
         [Tooltip("$Mods.BossFlamethrower.Config.UseMinutes.Tooltip")]
         [DefaultValue(false)]
         public bool UseMinutes;
+
+        [Label("$Mods.BossFlamethrower.Config.CursedPHM.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.CursedPHM.Tooltip")]
+        [DefaultValue(true)]
+        public bool CursedPHM;
+
+        [Label("$Mods.BossFlamethrower.Config.UseCursed.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.UseCursed.Tooltip")]
+        [DefaultValue(true)]
+        public bool UseCursed;
+
+        [Label("$Mods.BossFlamethrower.Config.FlameDis.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.FlameDis.Tooltip")]
+        [DefaultValue(6f)]
+        [Range(1f, 25f)]
+        public float FlameDis;
+
+        [Label("$Mods.BossFlamethrower.Config.MoonCursed.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.MoonCursed.Tooltip")]
+        [DefaultValue(false)]
+        public bool MoonCursed;
     }
 }
