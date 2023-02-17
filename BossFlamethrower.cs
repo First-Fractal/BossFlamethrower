@@ -55,6 +55,10 @@ namespace BossFlamethrower
             durationMax = Config.Instance.FlamethrowerDuration;
             if (Config.Instance.UseMinutes)
             {
+                cooldownMax = Config.Instance.FlamethrowerCooldown * 60f * 60f;
+                durationMax = Config.Instance.FlamethrowerDuration * 60f * 60f;
+            } else
+            {
                 cooldownMax = Config.Instance.FlamethrowerCooldown * 60f;
                 durationMax = Config.Instance.FlamethrowerDuration * 60f;
             }
@@ -170,7 +174,6 @@ namespace BossFlamethrower
                 {
                     //countdown the cooldown till flame time
                     cooldown--;
-                    //Main.NewText("The cooldown of the flamethrower is currently at " + cooldown.ToString());
                     if (cooldown < 0)
                     {
                         flame = true;

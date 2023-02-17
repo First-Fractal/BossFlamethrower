@@ -17,7 +17,9 @@ If you are a Terraria Content Creator that is going to use this mod, please give
 [Download it here](https://steamcommunity.com/sharedfiles/filedetails/?id=2933062828)
 
 # Change Log
-V 1.1:
+v 1.2: 
+fix a bug with the timing.
+v 1.1:
 Change how the flamethrower worked for Skeletron and Skeletron Prime. Added in more config options for the mod. Gave the option for Moon Lord to have flamethrower, but it has to be enabled. Made all bosses say when the flame is activated.
 v 1.0:
-Relased the mod
+Relased the mod.
