@@ -18,6 +18,6 @@ fix another bug where the flamethrower have a short cooldown when started, and a
 v 1.2: 
 fix a bug with the timing.
 v 1.1:
-Change how the flamethrower worked for Skeletron and Skeletron Prime. Added in more config options for the mod. Gave the option for Moon Lord to have flamethrower, but it has to be enabled. Made all bosses say when the flame is activated.
+Change how the flamethrower worked for Skeletron and Skeletron Prime (credit to Shun Kim for the idea). Added in more config options for the mod. Gave the option for Moon Lord to have flamethrower, but it has to be enabled. Made all bosses say when the flame is activated.
 v 1.0:
 Relased the mod.
