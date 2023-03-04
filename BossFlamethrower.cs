@@ -34,6 +34,8 @@ namespace BossFlamethrower
         static float duration = durationMax;
         static bool flame = false;
         static bool talked = false;
+        static BossFlamethrower BF = new BossFlamethrower();
+        static bool boss = false;
 
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
@@ -41,7 +43,6 @@ namespace BossFlamethrower
             {
                 if (npc.type == NPCID.MoonLordCore)
                 {
-                    BossFlamethrower BF = new BossFlamethrower();
                     BF.Talk(Language.GetTextValue("Mods.BossFlamethrower.Warning"), Color.Cyan);
                 }
             }
@@ -72,10 +73,11 @@ namespace BossFlamethrower
             {
                 duration = durationMax;
             }
-
+            
             // get all of the bosses and boss parts
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
             {
+                boss = true;
                 if (flame)
                 {
                     //slowly decrease the time and stop when times up
@@ -145,16 +147,15 @@ namespace BossFlamethrower
                             if (Config.Instance.MoonCursed)
                             {
                                 //create the flame thrower
-                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, (int) (npc.damage * Config.Instance.FlameDamMulti) / 4, 0f, Main.myPlayer);
                             }
                         } else
                         {
                             //create the flame thrower
-                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, npc.damage / 4, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, (int)(npc.damage * Config.Instance.FlameDamMulti) / 4, 0f, Main.myPlayer);
 
                             if (talked == false)
                             {
-                                BossFlamethrower BF = new BossFlamethrower();
                                 string message = "";
                                 if (npc.type == NPCID.QueenBee || npc.type == NPCID.QueenSlimeBoss || npc.type == NPCID.Plantera || npc.type == NPCID.HallowBoss)
                                 {
@@ -181,6 +182,12 @@ namespace BossFlamethrower
                         talked = false;
                     }
                 }
+            }
+
+            if (boss == false)
+            {
+                cooldown = cooldownMax;
+                duration = durationMax;
             }
             base.AI(npc);
         }
@@ -268,5 +275,11 @@ namespace BossFlamethrower
         [Tooltip("$Mods.BossFlamethrower.Config.MoonCursed.Tooltip")]
         [DefaultValue(false)]
         public bool MoonCursed;
+
+        [Label("$Mods.BossFlamethrower.Config.FlameDamMulti.Label")]
+        [Tooltip("$Mods.BossFlamethrower.Config.FlameDamMulti.Tooltip")]
+        [DefaultValue(1f)]
+        [Range(0.1f, 2f)]
+        public float FlameDamMulti;
     }
 }

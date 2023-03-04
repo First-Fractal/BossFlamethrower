@@ -9,10 +9,12 @@ For Deerclops, Wall of Flesh, Cultist, and Cultist Clone, it will come out and p
 For everyone else, except for Moon lord and Spazmatism, then it will come out of the center and points torwards the player target. 
 Moon Lord dosn't have flamethrowers because it is almost impossible to see them cause of the darkness. However, you can enable him to have it, but you got to change your lighting to retro or trippy to be able to see it.
 
-If you are a Terraria Content Creator that is going to use this mod, please give me proper credit by mention that I was the one who made it, and that you link my channel, mod, or website in the description.
+If you are a Terraria Content Creator that is going to use this mod, please give me proper credit by mention that I was the one who made it, and that you link my channel (https://www.youtube.com/@first_fractal), mod, or website (https://firstfractal.com) in the description.
 
 Change Log
 ---------------------------------------
+v 1.3: 
+fix another bug where the flamethrower have a short cooldown when started, and also added a flamethrower damage multi config.
 v 1.2: 
 fix a bug with the timing.
 v 1.1:

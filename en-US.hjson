@@ -43,6 +43,11 @@ Mods: {
 				Label: Give Moon Lord Flamethrower?
 				Tooltip: If true, then Moon Lord will have a flamethrower. NOTE: YOU MUST SET YOUR LIGHTING TO RETRO OR TRIPPY TO BE ABLE TO SEE THE FLAMETHROWER.
 			}
+
+			FlameDamMulti: {
+				Label: Flamethrower Damage Multiplier
+				Tooltip: Set the multiplier of the flamethrower damage. Note that the original damage is based on the contact damage that the boss does.
+			}
 		}
 	}
 }
