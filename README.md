@@ -17,6 +17,8 @@ If you are a Terraria Content Creator that is going to use this mod, please give
 [Download it here](https://steamcommunity.com/sharedfiles/filedetails/?id=2933062828)
 
 # Change Log
+v 1.3.1:
+forgot to make moon lord talk when using his flamethrower.
 v 1.3: 
 fix another bug where the flamethrower have a short cooldown when started, and also added a flamethrower damage multi config.
 v 1.2: 

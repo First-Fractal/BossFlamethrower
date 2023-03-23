@@ -148,6 +148,11 @@ namespace BossFlamethrower
                             {
                                 //create the flame thrower
                                 Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, (int) (npc.damage * Config.Instance.FlameDamMulti) / 4, 0f, Main.myPlayer);
+                                if (talked == false)
+                                {
+                                    BF.Talk("Moon Lord " + Language.GetTextValue("Mods.BossFlamethrower.PyroM"), new Color(255, 96, 10));
+                                    talked = true;
+                                }
                             }
                         } else
                         {
