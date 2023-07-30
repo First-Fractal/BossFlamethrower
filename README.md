@@ -17,12 +17,14 @@ If you are a Terraria Content Creator that is going to use this mod, please give
 [Download it here](https://steamcommunity.com/sharedfiles/filedetails/?id=2933062828)
 
 # Change Log
+v 1.4:
+Change how the timer for the cooldown and duration works. It should be more consistent now. Also added in a Boss Flamethrower Bar to tell you how long the cooldown/duration will last.
 v 1.3.1:
-forgot to make moon lord talk when using his flamethrower.
+Forgot to make moon lord talk when using his flamethrower.
 v 1.3: 
-fix another bug where the flamethrower have a short cooldown when started, and also added a flamethrower damage multi config.
+Fix another bug where the flamethrower have a short cooldown when started, and also added a flamethrower damage multi config.
 v 1.2: 
-fix a bug with the timing. 
+Fix a bug with the timing. 
 v 1.1:
 Change how the flamethrower worked for Skeletron and Skeletron Prime (credit to Shun Kim for the idea). Added in more config options for the mod. Gave the option for Moon Lord to have flamethrower, but it has to be enabled. Made all bosses say when the flame is activated.
 v 1.0:

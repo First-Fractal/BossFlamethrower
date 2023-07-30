@@ -49,5 +49,27 @@ Mods: {
 				Tooltip: Set the multiplier of the flamethrower damage. Note that the original damage is based on the contact damage that the boss does.
 			}
 		}
+
+		BossGUI: {
+			Label: "GUI Config"
+			Header: {
+				GeneralOptions: "GUI Options"
+			}
+
+			DisplayBar: {
+				Label: "Display Flamethrower Bar?"
+				Tooltip: "Should the boss flamethrower bar should be visible? \nNote that it would only be visible while a boss is alive."
+			}
+
+			FlamethrowerBarX: {
+				Label: "Flamethrower Bar X %"
+				Tooltip: "Set the X % of the flamethrower bar."
+			}
+
+			FlamethrowerBarY: {
+				Label: "Flamethrower Bar Y %"
+				Tooltip: "Set the Y % of the flamethrower bar."
+			}
+		}
 	}
 }
