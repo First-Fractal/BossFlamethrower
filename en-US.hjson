@@ -1,4 +1,3 @@
-
 Mods: {
 	BossFlamethrower: {
 		Warning: WARNING: Since you enabled Moon Lord to have flamethrower, set your lighting to retro or trippy to be able to see them.
@@ -51,24 +50,91 @@ Mods: {
 		}
 
 		BossGUI: {
-			Label: "GUI Config"
-			Header: {
-				GeneralOptions: "GUI Options"
-			}
+			Label: GUI Config
+			Header.GeneralOptions: GUI Options
 
 			DisplayBar: {
-				Label: "Display Flamethrower Bar?"
-				Tooltip: "Should the boss flamethrower bar should be visible? \nNote that it would only be visible while a boss is alive."
+				Label: Display Flamethrower Bar?
+				Tooltip:
+					'''
+					Should the boss flamethrower bar should be visible? 
+					Note that it would only be visible while a boss is alive.
+					'''
 			}
 
 			FlamethrowerBarX: {
-				Label: "Flamethrower Bar X %"
-				Tooltip: "Set the X % of the flamethrower bar."
+				Label: Flamethrower Bar X %
+				Tooltip: Set the X % of the flamethrower bar.
 			}
 
 			FlamethrowerBarY: {
-				Label: "Flamethrower Bar Y %"
-				Tooltip: "Set the Y % of the flamethrower bar."
+				Label: Flamethrower Bar Y %
+				Tooltip: Set the Y % of the flamethrower bar.
+			}
+		}
+
+		Configs: {
+			GUIConfig: {
+				FlamethrowerBarY: {
+					Tooltip: "{$Mods.BossFlamethrower.BossGUI.FlamethrowerBarY.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.BossGUI.FlamethrowerBarY.Label}"
+				}
+
+				FlamethrowerBarX: {
+					Tooltip: "{$Mods.BossFlamethrower.BossGUI.FlamethrowerBarX.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.BossGUI.FlamethrowerBarX.Label}"
+				}
+
+				DisplayBar: {
+					Tooltip: "{$Mods.BossFlamethrower.BossGUI.DisplayBar.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.BossGUI.DisplayBar.Label}"
+				}
+
+				DisplayName: "{$Mods.BossFlamethrower.BossGUI.Label}"
+			}
+
+			Config: {
+				FlameDamMulti: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.FlameDamMulti.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.FlameDamMulti.Label}"
+				}
+
+				MoonCursed: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.MoonCursed.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.MoonCursed.Label}"
+				}
+
+				FlameDis: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.FlameDis.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.FlameDis.Label}"
+				}
+
+				UseCursed: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.UseCursed.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.UseCursed.Label}"
+				}
+
+				CursedPHM: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.CursedPHM.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.CursedPHM.Label}"
+				}
+
+				UseMinutes: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.UseMinutes.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.UseMinutes.Label}"
+				}
+
+				FlamethrowerDuration: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.FlamethrowerDuration.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.FlamethrowerDuration.Label}"
+				}
+
+				FlamethrowerCooldown: {
+					Tooltip: "{$Mods.BossFlamethrower.Config.FlamethrowerCooldown.Tooltip}"
+					Label: "{$Mods.BossFlamethrower.Config.FlamethrowerCooldown.Label}"
+				}
+
+				DisplayName: "{$Mods.BossFlamethrower.Config.Label}"
 			}
 		}
 	}

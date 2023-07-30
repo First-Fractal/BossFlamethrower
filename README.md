@@ -17,6 +17,8 @@ If you are a Terraria Content Creator that is going to use this mod, please give
 [Download it here](https://steamcommunity.com/sharedfiles/filedetails/?id=2933062828)
 
 # Change Log
+v 1.4.1:
+Ported to 1.4.4.
 v 1.4:
 Change how the timer for the cooldown and duration works. It should be more consistent now. Also added in a Boss Flamethrower Bar to tell you how long the cooldown/duration will last.
 v 1.3.1:
