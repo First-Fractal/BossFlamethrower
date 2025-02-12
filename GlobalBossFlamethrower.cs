@@ -10,15 +10,21 @@ namespace BossFlamethrower
 {
     public class GlobalBossFlamethrower : GlobalNPC
     {
+        //get an instance of the mod
         static BossFlamethrower BF = new BossFlamethrower();
+
+        //check if talked about the flamethrower change
         static bool talked = false;
 
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
+            //check if moonlord should have a flamethrower
             if (Config.Instance.MoonCursed)
             {
+                //check if the npc that just spawn in is moon lord
                 if (npc.type == NPCID.MoonLordCore)
                 {
+                    //warn them about the lighting issue
                     BF.Talk(Language.GetTextValue("Mods.BossFlamethrower.Warning"), Color.Cyan);
                 }
             }
@@ -27,9 +33,10 @@ namespace BossFlamethrower
 
         public override void AI(NPC npc)
         {
-            // get all of the bosses and boss parts
+            //get all of the bosses and boss parts
             if (npc.boss || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.CultistBossClone)
             {
+                //check the flamethrower state
                 if (ModContent.GetInstance<FlamethrowerSystem>().flame)
                 {
                     //dont give spazmatism a flame thrower, since he already has one
@@ -93,6 +100,7 @@ namespace BossFlamethrower
                                 Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, (int)(npc.damage * Config.Instance.FlameDamMulti) / 4, 0f, Main.myPlayer);
                                 if (talked == false)
                                 {
+                                    //tell them about the flamethrower warning
                                     BF.Talk("Moon Lord " + Language.GetTextValue("Mods.BossFlamethrower.PyroM"), new Color(255, 96, 10));
                                     talked = true;
                                 }
@@ -103,9 +111,13 @@ namespace BossFlamethrower
                             //create the flame thrower
                             Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.EyeFire, (int)(npc.damage * Config.Instance.FlameDamMulti) / 4, 0f, Main.myPlayer);
 
+                            //check if I already tell them
                             if (talked == false)
                             {
+                                //prepare to create the message
                                 string message = "";
+
+                                //check if the boss is a known female one
                                 if (npc.type == NPCID.QueenBee || npc.type == NPCID.QueenSlimeBoss || npc.type == NPCID.Plantera || npc.type == NPCID.HallowBoss)
                                 {
                                     message = npc.FullName + " " + Language.GetTextValue("Mods.BossFlamethrower.PyroF");
@@ -115,6 +127,7 @@ namespace BossFlamethrower
                                     message = npc.FullName + " " + Language.GetTextValue("Mods.BossFlamethrower.PyroM");
                                 }
 
+                                //talk about the message
                                 BF.Talk(message, new Color(255, 96, 10));
                                 talked = true;
                             }

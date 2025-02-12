@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace BossFlamethrower
 {
+    //the varaibles from the server for the UI
     public class FlamethrowerPlayer : ModPlayer
     {
         public bool boss = false;
